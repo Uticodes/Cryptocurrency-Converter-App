@@ -1,8 +1,29 @@
-import 'package:cryptocurrency_converter_app/utils/app_fonts.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-void main() {
-  runApp(const MyApp());
+import 'package:cryptocurrency_converter_app/route/routes.dart';
+import 'package:cryptocurrency_converter_app/ui/main_page.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'network/core/config.dart';
+import 'network/remote/currency_remote.dart';
+import 'network/remote/currency_remote_impl.dart';
+import 'network/repository/currency_repository.dart';
+import 'network/repository/currency_repository_impl.dart';
+import 'domain/viewmodel/currency_viewmodel.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Config.appFlavor = Flavor.DEVELOPMENT;
+  setupLocator();
+  runZonedGuarded(() {
+    runApp(const ProviderScope(child: MyApp()));
+  }, (dynamic error, dynamic stack) {
+    print(error);
+    print(stack);
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -13,54 +34,49 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Currency Converter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Cryptocurrency Converter'),
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+GetIt locator = GetIt.instance;
 
-  final String title;
+void setupLocator() {
+  setupDio();
+  locator.registerFactory<CurrencyRemote>(() => CurrencyRemoteImpl(locator<Dio>()));
+  locator.registerFactory<CurrencyRepository>(
+          () => CurrencyRepositoryImpl(locator<CurrencyRemote>()));
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  registerViewModels();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    TextEditingController _amount = TextEditingController();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(height: 70.0,),
-            AppFontsStyle.getAppTextViewBold(
-              "Enter the amount you want to convert on the amount input, then select the currency, then the currency to be converted to",
-              weight: FontWeight.w700,
-              size: AppFontsStyle.textFontSize32,
-            ),
-            // const Text(
-            //   'You have pushed the button this many times:',
-            // ),
-            // Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.headline4,
-            // ),
-          ],
-        ),
-      ),
-    );
-  }
+void setupDio() {
+  locator.registerFactory(() {
+    Dio dio = Dio();
+    /*TODO Confirm headers*/
+    dio.interceptors.add(PrettyDioLogger());
+// customization
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90));
+    return dio;
+  });
 }
+
+void registerViewModels() {
+  /* TODO Setup viewModels*/
+  locator.registerFactory(() => CurrencyViewModel());
+
+}
+
+

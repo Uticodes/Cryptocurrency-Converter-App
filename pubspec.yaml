@@ -37,12 +37,19 @@ dependencies:
   http: ^0.13.3
   intl: ^0.17.0
   #google_fonts: ^2.1.0
-  #dio: ^4.0.0
+  dio: ^4.0.0
+  flutter_hooks: ^0.17.0
+  hooks_riverpod: ^0.14.0+4
+  json_annotation: ^4.0.0
+  pretty_dio_logger: ^1.1.1
+  get_it:
+  dropdown_search: ^2.0.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  json_serializable: ^4.0.3
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

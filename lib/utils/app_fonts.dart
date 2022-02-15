@@ -25,12 +25,12 @@ class AppFontsStyle {
     return Text(displayText,
         maxLines: maxLines,
         textAlign: textAlign ?? TextAlign.left,
-        // style: GoogleFonts.manrope(
-        //     color: color ?? Pallet.colorBlue,
-        //     fontSize: textSize ?? AppFontsStyle.textFontSize12,
-        //     fontWeight: FontWeight.w500,
-        //     fontStyle: FontStyle.normal,
-        //     height: 1.5)
+        style: TextStyle(
+            color: color ?? Pallet.colorBlue,
+            fontSize: textSize ?? AppFontsStyle.textFontSize12,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+            height: 1.5)
     );
   }
 
@@ -38,12 +38,12 @@ class AppFontsStyle {
     final textSize = size == null ? null : double.parse(size.toString());
     return Text(text,
         textAlign: textAlign ?? TextAlign.left,
-        // style: GoogleFonts.manrope(
-        //   color: color ?? Pallet.colorBlue,
-        //   fontSize: textSize ?? AppFontsStyle.textFontSize16,
-        //   fontWeight: weight ?? FontWeight.w600,
-        //   fontStyle: FontStyle.normal,
-        // )
+        style: TextStyle(
+          color: color ?? Pallet.colorBlue,
+          fontSize: textSize ?? AppFontsStyle.textFontSize16,
+          fontWeight: weight ?? FontWeight.w600,
+          fontStyle: FontStyle.normal,
+        )
     );
   }
 }

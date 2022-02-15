@@ -75,16 +75,16 @@ class _AppFormFieldState extends State<AppFormField> {
                         () {
                       _onFocusChange(true);
                     },
-                keyboardType: widget.keyboardType ?? TextInputType.text,
+                keyboardType: widget.keyboardType ?? const TextInputType.numberWithOptions(decimal: true),
                 onChanged: widget.onChanged,
                 validator: widget.validator,
                 maxLines: 1,
-                // style: GoogleFonts.manrope(
-                //   color: Pallet.colorBlue,
-                //   fontSize: AppFontsStyle.textFontSize14,
-                //   fontWeight: FontWeight.w500,
-                //   fontStyle: FontStyle.normal,
-                // ),
+                style: TextStyle(
+                  color: Pallet.colorBlue,
+                  fontSize: AppFontsStyle.textFontSize14,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
+                ),
                 obscureText: widget.isHidden,
                 decoration: widget.decorator ??
                     InputDecoration(
@@ -92,12 +92,12 @@ class _AppFormFieldState extends State<AppFormField> {
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                       labelText: widget.label,
                       contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
-                      // labelStyle: GoogleFonts.manrope(
-                      //   color: Pallet.colorGrey,
-                      //   fontWeight: FontWeight.w200,
-                      //   backgroundColor: null,
-                      //   background: null,
-                      // ),
+                      labelStyle: TextStyle(
+                        color: Pallet.colorBlue,
+                        fontWeight: FontWeight.w300,
+                        backgroundColor: null,
+                        background: null,
+                      ),
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
