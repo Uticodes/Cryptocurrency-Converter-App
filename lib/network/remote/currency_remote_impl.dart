@@ -33,15 +33,14 @@ class CurrencyRemoteImpl extends CurrencyRemote {
   Future<ConvertResponse?> convertCurrency(String from, String to, String amount) async {
     try {
           var response = await dioClient.get(
-            "${NetworkConfig.BASE_URL}/convert?access_key=${NetworkConfig.ACCESS_KEY}&from=$from&to=$to&amount=$amount",
+            "${NetworkConfig.BASE_URL}/convert?access_key=${NetworkConfig.ACCESS_KEY}&from=${from}&to=${to}&amount=${amount}"
           );
-          // Map<String, dynamic> convertMap = jsonDecode(response.network);
-          // print("Showing convertMap convertCurrency: $convertMap");
           var responseData = ConvertResponse.fromJson(response.data);
           print("Showing from convertCurrency: ${response.data}");
           print("Showing from ConvertResponse: ${responseData.result}");
           return responseData;
         } catch (error) {
+      print("Showing error convertCurrency: $error");
           handleError(error);
         }
   }

@@ -2,7 +2,6 @@
 import 'package:cryptocurrency_converter_app/domain/model/convert.dart';
 import 'package:cryptocurrency_converter_app/domain/model/rate.dart';
 import 'package:cryptocurrency_converter_app/domain/model/symbols.dart';
-
 import '../../network/core/view_state.dart';
 import '../../network/repository/currency_repository.dart';
 import '../../main.dart';
@@ -18,7 +17,7 @@ class CurrencyViewModel extends BaseViewModel {
   List<Rate>? rateList = [];
   List<Symbol>? symbolList = [];
   ConvertResponse? convertResponse;
-  ResultData? convert;
+  double? convert;
 
 
   void setViewState(ViewState state) {
@@ -69,11 +68,11 @@ class CurrencyViewModel extends BaseViewModel {
     try {
       setViewState(ViewState.Loading);
       var response = await userRepository.convertCurrency(from, to, amount);
-      //convertResponse = response;
-      //convert = response;
+      convertResponse = response;
+      convert = response?.result ?? 0.0;
       setViewState(ViewState.Success);
       print("Showing convertCurrency response:::3 $response");
-      print("Showing convertResponse response:::3 $convertResponse");
+      print("Showing convertResponse response:::3 ${convertResponse?.result}");
       return response;
     } catch (error) {
       setViewState(ViewState.Error);

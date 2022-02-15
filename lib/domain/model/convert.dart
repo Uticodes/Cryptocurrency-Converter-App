@@ -1,32 +1,17 @@
 
 class ConvertResponse {
-  bool? success;
-  Query? query;
-  Info? info;
-  String? date;
   double? result;
 
   ConvertResponse(
-      {this.success, this.query, this.info, this.date, this.result});
+      {this.result});
 
   ConvertResponse.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    query = json['query'];
-    info = json['info'];
-    date = json['date'];
     result = json['result'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['query'] = this.query;
-    data['info'] = this.info;
-    data['date'] = this.date;
-    // if (result != null) {
-    //   network['result'] = result?.toJson();
-    // }
-    data['result'].fromIterable(result, key: (e) => e.result,);
+    data['result'] = this.result;
     return data;
   }
 }
