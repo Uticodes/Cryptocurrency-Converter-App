@@ -97,6 +97,8 @@ class _ConvertPageState extends State<ConvertPage> {
                             itemAsString: (Symbol? u) => u!.symbol!,
                             onChanged: (Symbol? data) => {
                               selectedFromOption = data!.symbol as String,
+                            context.read(sharedProvider.currencyProvider)
+                                .convertCurrency(selectedFromOption, selectedToOption, _amount.text.trim()),
                               print(data)
                             },
                           ),
@@ -118,6 +120,8 @@ class _ConvertPageState extends State<ConvertPage> {
                               itemAsString: (Symbol? u) => u!.symbol!,
                               onChanged: (Symbol? data) => {
                                 selectedToOption = data!.symbol as String,
+                              context.read(sharedProvider.currencyProvider)
+                                  .convertCurrency(selectedFromOption, selectedToOption, _amount.text.trim()),
                                 print(data)
                               },
                             ),
