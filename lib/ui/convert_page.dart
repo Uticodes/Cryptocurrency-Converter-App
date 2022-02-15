@@ -36,6 +36,9 @@ class _ConvertPageState extends State<ConvertPage> {
         useProvider(sharedProvider.currencyProvider).symbolList;
 
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Pallet.colorBlue,
+        ),
         body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -43,17 +46,6 @@ class _ConvertPageState extends State<ConvertPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 14,),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.of(context).pop();
-                    },
-                    child: Image.asset(
-                      'assets/images/back_arrow.png',
-                      width: 15,
-                      height: 15,
-                    ),
-                  ),
                   const SizedBox(
                     height: 54,
                   ),
