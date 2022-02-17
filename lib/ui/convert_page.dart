@@ -56,9 +56,6 @@ class _ConvertPageState extends State<ConvertPage> {
                       setState(() {
                         context.read(sharedProvider.currencyProvider)
                             .convertCurrency(selectedFromOption, selectedToOption, _amount.text.trim());
-                      setState(() {
-
-                      });
                       });
                     },
                     validator: (value) {

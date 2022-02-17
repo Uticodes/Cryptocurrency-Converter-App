@@ -2,14 +2,12 @@ import 'dart:convert';
 
 import 'package:cryptocurrency_converter_app/domain/model/rate.dart';
 import 'package:cryptocurrency_converter_app/route/routes.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../network/core/view_state.dart';
 import '../domain/viewmodel/currency_viewmodel.dart';
 import '../main.dart';
-import '../utils/api_client.dart';
 import '../utils/app_fonts.dart';
 import '../utils/color.dart';
 import '../widget/app_progress_bar.dart';
@@ -43,19 +41,6 @@ class MyHomePage extends StatefulHookWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController _amount = TextEditingController();
-  ApiClient client = ApiClient();
-  List<String>? currencies;
-  List<String>? currencyList;
-  String from = "";
-  String? to;
-  double? rate;
-  String result = "";
-  final Dio dioClient = Dio();
-
-  Future<List<String>?> getCurrencyList() async {
-    return await client.getCurrencies();
-  }
 
   @override
   void initState(){
@@ -115,24 +100,21 @@ class _MyHomePageState extends State<MyHomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: List.generate(rateList!.length, (index) {
-                              return GestureDetector(
-                                onTap: () {},
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        RatesView(
-                                            "${rateList[index].title}",
-                                            "${rateList[index].value}"
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                      ],
-                                    ),
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 2.0),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      RatesView(
+                                          "${rateList[index].title}",
+                                          "${rateList[index].value}"
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
@@ -144,43 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: const EdgeInsets.only(top: 150.0),
                             child: AppProgressBar(),
                           )),
-
-                      // Center(
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                      //     child: Container(
-                      //       child: AppFontsStyle.getAppTextViewBold(
-                      //           "No currency rates available yet",
-                      //           size: AppFontsStyle.textFontSize12,
-                      //           weight: FontWeight.w600,
-                      //           textAlign: TextAlign.center,
-                      //           color: Pallet.colorGrey
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
                       SizedBox(height: 32.0,),
 
                       const SizedBox(
                         height: 24.0,
                       ),
-
-                      // SizedBox(
-                      //   height: 260,
-                      //     //width: 200,
-                      //     child: Row(
-                      //   children: [
-                      //     customDropDown(
-                      //         currencies ?? [],
-                      //         from ?? "",
-                      //             (from){
-                      //
-                      //         })
-                      //   ],
-                      // )
-                      // )
-
                     ],
                   ),
                 ),
@@ -207,7 +157,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class RatesView extends StatefulWidget {
-  //Function()? onDeleteClicked;
   String symbol;
   String value;
 

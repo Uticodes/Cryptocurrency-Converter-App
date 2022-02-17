@@ -35,12 +35,8 @@ class CurrencyViewModel extends BaseViewModel {
     try {
       setViewState(ViewState.Loading);
       var response = await userRepository.getCurrencyRates();
-      print("Showing getCurrencyRates response:::1 $response");
       setViewState(ViewState.Success);
-      print("Showing getCurrencyRates response:::2 $response");
       rateList = response ?? [];
-      print("Showing getCurrencyRates response:::3 $response");
-      print("Showing rateList response:::3 $rateList");
       return response;
     } catch (error) {
       setViewState(ViewState.Error);
@@ -71,8 +67,6 @@ class CurrencyViewModel extends BaseViewModel {
       convertResponse = response;
       convert = response?.result ?? 0.0;
       setViewState(ViewState.Success);
-      print("Showing convertCurrency response:::3 $response");
-      print("Showing convertResponse response:::3 ${convertResponse?.result}");
       return response;
     } catch (error) {
       setViewState(ViewState.Error);

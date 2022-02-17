@@ -1,11 +1,9 @@
 
 import 'dart:convert';
-
 import 'package:cryptocurrency_converter_app/domain/model/convert.dart';
 import 'package:cryptocurrency_converter_app/domain/model/rate.dart';
 import 'package:cryptocurrency_converter_app/domain/model/symbols.dart';
 import 'package:dio/dio.dart';
-
 import '../core/network_config.dart';
 import 'currency_remote.dart';
 

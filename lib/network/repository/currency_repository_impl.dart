@@ -12,16 +12,12 @@ class CurrencyRepositoryImpl extends CurrencyRepository {
 
   @override
   Future<List<Rate>?> getCurrencyRates() async {
-    final response = await userRemote.getCurrencyRates();
-    print("Showing from CurrencyRepository: $response");
-    return response;
+    return await userRemote.getCurrencyRates();
   }
 
   @override
   Future<ConvertResponse?> convertCurrency(String from, String to, String amount) async {
-    final response = await userRemote.convertCurrency(from, to, amount);
-    print("Showing convertCurrency from repository : $response");
-    return response;
+    return await userRemote.convertCurrency(from, to, amount);;
   }
 
   @override
